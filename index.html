@@ -13,10 +13,11 @@
     * { scrollbar-width: none; }
 
     html, body {
-      height: 100%;
+      min-height: 100%;
       font-family: 'Lato', sans-serif;
       background: linear-gradient(150deg, #fdf2e9 0%, #fce8f0 45%, #ede8fd 100%);
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       user-select: none;
     }
 
@@ -26,6 +27,7 @@
       align-items: center;
       justify-content: center;
       position: relative;
+      padding: 24px 0;
     }
 
     /* ── Keyframes ─────────────────────────────────────────────── */
@@ -237,20 +239,30 @@
       padding: 48px 44px 44px;
     }
 
+    /* ── Responsive adjustments for portrait phone screens ── */
     @media (max-width: 540px) {
-      .letter-paper { padding: 36px 28px 36px; }
+      #app {
+        padding: 16px 0;
+      }
+      .letter-paper {
+        padding: 28px 20px 24px;
+        border-radius: 18px;
+      }
+      .ornament { margin-bottom: 16px; }
+      .label { margin-bottom: 8px; }
+      .heading { margin-bottom: 16px; }
+      .cake-row { font-size: 40px; margin-bottom: 16px; }
+      .body-copy { font-size: 15px; margin-bottom: 14px; line-height: 1.65; }
+      .divider { margin-bottom: 20px; }
+      .sig-main { font-size: 26px; }
+      .sig-sub { font-size: 18px; }
+      .emoji-row { margin-top: 20px; font-size: 20px; }
     }
-
-    /* ── FONT SIZE REFERENCE ────────────────────────────────────────
-       To resize any text, find its CSS class below and change the
-       font-size value. Units are px (pixels).
-       Higher number = bigger text. Lower number = smaller text.
-    ──────────────────────────────────────────────────────────── */
 
     .ornament {
       text-align: center;
       color: #d4a054;
-      font-size: 13px;         /* ← ORNAMENT STARS size */
+      font-size: 13px;
       letter-spacing: 0.3em;
       margin-bottom: 28px;
     }
@@ -258,7 +270,7 @@
     .label {
       text-align: center;
       font-family: 'Lato', sans-serif;
-      font-size: 11px;         /* ← SMALL LABEL size (the subtitle above the heading) */
+      font-size: 11px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: #b8895a;
@@ -271,11 +283,7 @@
     .heading {
       text-align: center;
       font-family: 'Playfair Display', serif;
-      /* ↓ MAIN HEADING size — clamp(min, fluid, max)
-           min = smallest it will ever be (on tiny screens)
-           max = largest it will ever be (on wide screens)
-           Change the first and last numbers to resize */
-      font-size: clamp(36px, 8vw, 52px);
+      font-size: clamp(32px, 8vw, 52px);
       font-weight: 700;
       font-style: italic;
       color: #2d1608;
@@ -287,7 +295,7 @@
 
     .cake-row {
       text-align: center;
-      font-size: 52px;         /* ← LARGE EMOJI size (the big 🎂 under the heading) */
+      font-size: 52px;
       margin-bottom: 24px;
       opacity: 0;
       animation: fadeInUp 0.6s ease-out 0.3s both;
@@ -297,12 +305,18 @@
       text-align: center;
       font-family: 'Playfair Display', serif;
       color: #5c3820;
-      font-size: 17px;         /* ← BODY PARAGRAPH size (both paragraphs share this) */
+      font-size: 17px;
       font-weight: 400;
       line-height: 1.75;
       margin-bottom: 20px;
       opacity: 0;
       animation: fadeInUp 0.6s ease-out 0.4s both;
+    }
+
+    .quote-text {
+      font-style: italic;
+      font-weight: 600;
+      color: #4a2c18;
     }
 
     .body-copy-2 {
@@ -336,7 +350,7 @@
 
     .sig-main {
       font-family: 'Dancing Script', cursive;
-      font-size: 30px;         /* ← SIGNATURE MAIN LINE size (e.g. "With so much love") */
+      font-size: 30px;
       color: #7a4820;
       font-weight: 600;
       line-height: 1.2;
@@ -344,7 +358,7 @@
 
     .sig-sub {
       font-family: 'Dancing Script', cursive;
-      font-size: 22px;         /* ← SIGNATURE SECOND LINE size (e.g. "— wishing you...") */
+      font-size: 22px;
       color: #b88050;
       margin-top: 4px;
       font-weight: 400;
@@ -355,7 +369,7 @@
       justify-content: center;
       gap: 16px;
       margin-top: 28px;
-      font-size: 22px;         /* ← BOTTOM EMOJI ROW size (the 🎈✨🎁 row at the foot) */
+      font-size: 22px;
       opacity: 0;
       animation: fadeInUp 0.6s ease-out 0.85s both;
     }
@@ -418,37 +432,20 @@
       <div class="letter-paper">
         <div class="ornament">✦ ✦ ✦</div>
 
-        <!-- ═══════════════════════════════════════════════════════
-             SMALL LABEL — appears above the main heading
-             Change this to set a subtitle or occasion description
-        ════════════════════════════════════════════════════════ -->
-        <p class="label">MY MESSAGE TO YOU <3</p>
+        <p class="label">MY MESSAGE TO YOU &lt;3</p>
 
-        <!-- ═══════════════════════════════════════════════════════
-             MAIN HEADING — the big bold title of the letter
-             Change this to your greeting (e.g. "Happy 30th!")
-        ════════════════════════════════════════════════════════ -->
         <h1 class="heading">HAPPY BIRTHDAY!</h1>
 
-        <!-- ═══════════════════════════════════════════════════════
-             EMOJI / ICON ROW — decorative emoji under the heading
-             Replace 🎂 with any emoji you like
-        ════════════════════════════════════════════════════════ -->
         <div class="cake-row">🎂</div>
 
-        <!-- ═══════════════════════════════════════════════════════
-             FIRST PARAGRAPH — main body of your message
-             Write anything here — keep it to 2–4 sentences
-        ════════════════════════════════════════════════════════ -->
         <p class="body-copy">
           Hey, first and foremost I want to greet you a happy happy happy birthday and I hope you are already experiencing an awesome day while you are reading this letter. I wanna grab this opportunity to also share to you this verse that I really like found in Proverbs 16:9:
-        <p class="body-copy">
-        "The heart of man plans his way, but the Lord establishes his steps"
+        </p>
 
-        <!-- ═══════════════════════════════════════════════════════
-             SECOND PARAGRAPH — optional continuation of your message
-             Delete this whole <p> block if you only want one paragraph
-        ════════════════════════════════════════════════════════ -->
+        <p class="body-copy quote-text">
+          "The heart of man plans his way, but the Lord establishes his steps"
+        </p>
+
         <p class="body-copy body-copy-2">
           I wish you a great day and I hope this gives you assurance that whatever your plans are, God will establish your steps and that you don't need to worry about anything. I hope you stay goofy as you were and we should definitely play some games to hangout sometimes.
         </p>
@@ -459,21 +456,11 @@
           <div class="divider-line divider-line-r"></div>
         </div>
 
-        <!-- ═══════════════════════════════════════════════════════
-             SIGNATURE LINES — closing of the letter
-             sig-main  → main sign-off line (e.g. "Love, Sarah 🎉")
-             sig-sub   → optional second line (e.g. "— your best friend")
-             Delete the sig-sub <p> if you only want one line
-        ════════════════════════════════════════════════════════ -->
         <div class="signature">
           <p class="sig-main">GOD BLESS YOU 🎉</p>
           <p class="sig-sub">— wishing you and your family a great day</p>
         </div>
 
-        <!-- ═══════════════════════════════════════════════════════
-             BOTTOM EMOJI ROW — decorative row of emojis at the foot
-             Replace any of the <span> emojis or add/remove spans
-        ════════════════════════════════════════════════════════ -->
         <div class="emoji-row">
           <span>🎈</span><span>✨</span><span>🎁</span><span>✨</span><span>🎈</span>
         </div>
