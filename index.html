@@ -213,7 +213,7 @@
       background: #ffffff;
       border-left: 1px solid rgba(0,0,0,0.06);
       border-right: 1px solid rgba(0,0,0,0.06);
-      padding: 32px 26px;
+      padding: 32px 26px 32px;
       position: relative;
       box-shadow: 0 6px 20px rgba(0,0,0,0.06);
       background-image: linear-gradient(to bottom, #ffffff 0%, #fafafa 100%);
@@ -250,7 +250,8 @@
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: #9a7a60;
-      margin-top: 16px;
+      margin-top: 18px;
+      margin-bottom: 24px;
       animation: pulseHint 1.8s infinite;
       pointer-events: none;
       transition: opacity 0.4s ease;
@@ -293,6 +294,10 @@
       font-weight: 400;
       line-height: 1.75;
       margin-bottom: 14px;
+    }
+
+    .body-copy:last-child {
+      margin-bottom: 0;
     }
 
     .quote-text {
@@ -370,46 +375,39 @@
 
           <!-- PART 1 (TOP PANEL) -->
           <div class="letter-part part-1" id="part-1">
-            <p class="page-label">✦ Part 1 ✦</p>
-            <h1 class="heading">HAPPY BIRTHDAY!</h1>
-            <div class="cake-row">🎂</div>
             <p class="body-copy">
-              Hey! First and foremost I want to greet you a happy happy birthday! I hope you are experiencing an awesome day while reading this letter. I wanted to take this time to craft something special for you to celebrate your birthday.
+              From me, to you <br><br>
+              Dear birthday girlie,<br><br>
+              I recently remembered those past conversations we had where I shared with you one time that I wanna spend my eleventh grade year to come out of my comfort zone and try out new things, then you told me that you wish to do the same thing and it reminded me how much you grew for the past years. I am happy to know that you are in that kind of place now since I can see you social media stories lol and I wanna say that I am rooting for your sucess and anything that you wanna try.
             </p>
           </div>
 
           <!-- PART 2 (MIDDLE PANEL) -->
           <div class="letter-part part-2" id="part-2">
-            <p class="page-label">✦ Part 2 ✦</p>
             <p class="body-copy">
+              I am really thrilled to see where you are in your life right now and how you turned out as a person, even after those conversations where you shared with me your past experiences in school before we met. I pray for good things for your life, your family, and the ones that you love.
               I wanna grab this opportunity to also share with you this verse that I really like found in Proverbs 16:9:
             </p>
             <p class="body-copy quote-text">
               "The heart of man plans his way, but the Lord establishes his steps."
             </p>
             <p class="body-copy">
-              I hope this gives you assurance that whatever your plans are, God will establish your steps and you don't need to worry about anything. Trust in the path being laid out for you.
+              I hope this gives you the assurance to not worry about anything. But instead, lean in the promises of the Lord. Anything that gives you worry is never greater than what God can accomplish so I pray that your heart may always be reminded of God.
             </p>
           </div>
 
           <!-- PART 3 (BOTTOM PANEL) -->
           <div class="letter-part part-3" id="part-3">
-            <p class="page-label">✦ Part 3 ✦</p>
             <p class="body-copy">
-              Stay goofy as you are! I hope this year brings you unending peace, joy, and unforgettable memories. We should definitely play some games and hang out real soon!
+              And to actually end this, HAPPY BIRTHDAYY Ariane!!! <br>Stay goofy as you are! I hope this year brings you unending peace, joy, and unforgettable memories. And this is just my own agenda but I hope we could sometimes play some games and hangout lol. <br> Anyways, may God bless you and Happy Birthdayyyy!!!!!!!!
             </p>
             <div class="divider">
               <div class="divider-line divider-line-l"></div>
               <span class="divider-star">✦</span>
               <div class="divider-line divider-line-r"></div>
             </div>
-            <div class="signature">
-              <p class="sig-main">GOD BLESS YOU 🎉</p>
-              <p class="sig-sub">— wishing you and your family a great day</p>
-            </div>
-            <div class="emoji-row">
-              <span>🎈</span><span>✨</span><span>🎁</span><span>✨</span><span>🎈</span>
-            </div>
+            
+            
           </div>
 
           <!-- HINT TEXT ATTACHED DIRECTLY BELOW LETTER CARD -->
@@ -473,7 +471,7 @@
       }, 1750);
     });
 
-    /* ── Smooth Accordion Fold & Camera Centering Engine ───────────── */
+    /* ── Smooth Accordion Fold & Dynamic Camera Engine ───────────── */
     function initFoldEngine() {
       let state = 0; // 0: Part 1 active, 1: Part 2 active, 2: Part 3 active
       let dragProgress = 0;
@@ -487,20 +485,7 @@
       const bottomHint = document.getElementById('bottom-hint');
       const viewport = document.getElementById('letter-viewport');
 
-      // Pre-measure natural heights for accordion panels
-      function measureNaturalHeight(panel) {
-        panel.style.maxHeight = 'none';
-        panel.style.paddingTop = '32px';
-        panel.style.paddingBottom = '26px';
-        panel.style.opacity = '1';
-        return panel.scrollHeight;
-      }
-
-      const h2Full = measureNaturalHeight(part2);
-      const h3Full = measureNaturalHeight(part3);
-
-      function applyPanelFold(panel, factor, fullHeight) {
-        // factor: 0 (folded shut) to 1 (unfolded open)
+      function applyPanelFold(panel, factor) {
         if (factor <= 0.001) {
           panel.style.maxHeight = '0px';
           panel.style.paddingTop = '0px';
@@ -508,10 +493,19 @@
           panel.style.opacity = '0';
           panel.style.transform = 'rotateX(-85deg)';
           panel.style.borderTopWidth = '0px';
+        } else if (factor >= 0.99) {
+          panel.style.maxHeight = 'none';
+          panel.style.paddingTop = '32px';
+          panel.style.paddingBottom = '32px';
+          panel.style.opacity = '1';
+          panel.style.transform = 'rotateX(0deg)';
+          panel.style.borderTopWidth = '1px';
         } else {
-          panel.style.maxHeight = `${fullHeight * factor}px`;
+          panel.style.maxHeight = 'none';
+          const fullH = panel.scrollHeight;
+          panel.style.maxHeight = `${fullH * factor}px`;
           panel.style.paddingTop = `${32 * factor}px`;
-          panel.style.paddingBottom = `${26 * factor}px`;
+          panel.style.paddingBottom = `${32 * factor}px`;
           panel.style.opacity = `${factor}`;
           panel.style.transform = `rotateX(${-85 * (1 - factor)}deg)`;
           panel.style.borderTopWidth = '1px';
@@ -522,11 +516,6 @@
         const viewportHeight = viewport.clientHeight;
         const h1 = part1.offsetHeight;
 
-        const y0 = (viewportHeight - h1) / 2;
-        const y1 = (viewportHeight - h2Full) / 2 - h1;
-        const y2 = (viewportHeight - h3Full) / 2 - (h1 + h2Full);
-
-        let trackY = y0;
         let p2Factor = 0;
         let p3Factor = 0;
 
@@ -534,24 +523,43 @@
           const p = Math.max(0, Math.min(1, progress));
           p2Factor = p;
           p3Factor = 0;
-          trackY = y0 + (y1 - y0) * p;
         } else if (st === 1) {
           if (progress > 0) {
             const p = Math.max(0, Math.min(1, progress));
             p2Factor = 1;
             p3Factor = p;
-            trackY = y1 + (y2 - y1) * p;
           } else {
             const p = Math.max(0, Math.min(1, -progress));
             p2Factor = 1 - p;
             p3Factor = 0;
-            trackY = y1 + (y0 - y1) * p;
           }
         } else if (st === 2) {
           const p = Math.max(0, Math.min(1, -progress));
           p2Factor = 1;
           p3Factor = 1 - p;
-          trackY = y2 + (y1 - y2) * p;
+        }
+
+        applyPanelFold(part2, p2Factor);
+        applyPanelFold(part3, p3Factor);
+
+        const h2 = part2.scrollHeight || 300;
+        const h3 = part3.scrollHeight || 300;
+
+        const y0 = (viewportHeight - h1) / 2;
+        const y1 = (viewportHeight - h2) / 2 - h1;
+        const y2 = (viewportHeight - h3) / 2 - (h1 + h2);
+
+        let trackY = y0;
+        if (st === 0) {
+          trackY = y0 + (y1 - y0) * p2Factor;
+        } else if (st === 1) {
+          if (progress > 0) {
+            trackY = y1 + (y2 - y1) * p3Factor;
+          } else {
+            trackY = y1 + (y0 - y1) * (1 - p2Factor);
+          }
+        } else if (st === 2) {
+          trackY = y2 + (y1 - y2) * (1 - p3Factor);
         }
 
         const transitionCss = animate ? 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)' : 'none';
@@ -561,15 +569,12 @@
 
         track.style.transform = `translateY(${trackY}px)`;
 
-        applyPanelFold(part2, p2Factor, h2Full);
-        applyPanelFold(part3, p3Factor, h3Full);
-
         // Update hint text directly under letter
+        bottomHint.style.opacity = '1';
         if (st < 2) {
-          bottomHint.style.opacity = '1';
-          bottomHint.textContent = st === 0 ? "▲ Swipe up to unfold ▲" : "▲ Swipe up to unfold | Swipe down to fold ▼";
+          bottomHint.textContent = "▲ Swipe up to unfold ▲";
         } else {
-          bottomHint.style.opacity = '0';
+          bottomHint.textContent = "▼ Swipe down to fold ▼";
         }
       }
 
